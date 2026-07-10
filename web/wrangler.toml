@@ -1,7 +1,7 @@
-# Used when Cloudflare Path/root is the repo root (/)
 name = "hearth-hex"
 compatibility_date = "2026-07-10"
 
+# Static Vite output — used by: npx wrangler deploy
 [assets]
-directory = "./web/dist"
+directory = "./dist"
 not_found_handling = "single-page-application"
