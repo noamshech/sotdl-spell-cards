@@ -1,0 +1,31 @@
+# Dependencies & builds
+node_modules/
+web/node_modules/
+web/dist/
+dist/
+
+# Duplicate of web/public/images (site uses the public copy)
+extracted_images/
+
+# Python / local tooling
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+.wrangler/
+
+# Deploy artifacts
+hearth-hex-pages.zip
+web/hearth-hex-pages.zip
+web/deploy-zip-ready.txt

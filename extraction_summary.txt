@@ -1,0 +1,37 @@
+processed_pdfs=30
+skipped_pdfs=15
+cards=330
+skipped_pages=330
+images=330
+empty_book=0
+empty_page=11
+empty_description=0
+
+QA SAMPLES:
+- Stir the Air: UTILITY 0 | SHADOW 115 | area='A sphere with a 2-yard radius centered on a point you can reach' | target='' | duration='1 minute' | desc='You create a light breeze in the area, which moves with you for the duration. The breeze clears away'
+- Wind Blast: ATTACK 0 | SHADOW 115 | area='' | target='One creature or object within short range' | duration='' | desc="A powerful wind assails the target. Make a Will attack roll against the target's Strength. On a succ"
+- Still the Air: UTILITY 2 | SHADOW 115 | area='A sphere with a 4-yard radius centered on a point within medium range' | target='' | duration='1 hour' | desc='For the duration, no sound emanates from or reaches into the area. Creatures in the area are deafene'
+- Bestow Flight: UTILITY 3 | SHADOW 115 | area='' | target='One creature you can reach' | duration='1 hour' | desc='You touch the target. It can fly at its normal Speed for the duration.'
+- Bind Air Genie: UTILITY 5 | SHADOW 116 | area='' | target='A cube of air, 2 yards on a side, originating from a point within long range' | duration='1 minute' | desc='At the end of the round in which you cast this spell, the target cube becomes a Size 2 wind genie. Y'
+- Celerity: UTILITY 0 | SHADOW 118 | area='' | target='' | duration='' | desc='You move up to twice your Speed. This movement does not trigger free attacks. Triggered You can use '
+- Hex: ATTACK 0 | SHADOW 122 | area='' | target='One creature within short range that can see you' | duration='' | desc="Make an Intellect attack roll against the target's Will. On a success, the target becomes cursed for"
+- Control Flame: UTILITY 0 | SHADOW 127 | area='' | target='One Size 1 or smaller flammable object within short range' | duration='' | desc="The target catches fire or you extinguish the flame if it's already burning."
+
+EMPTY BOOK ROWS:
+
+SKIPPED FILES:
+Affliction Cards.pdf
+SotDL - Spell Cards - A Glorious Death.pdf
+SotDL - Spell Cards - Alchemy.pdf
+SotDL - Spell Cards - Death.pdf
+SotDL - Spell Cards - Demonology.pdf
+SotDL - Spell Cards - DLC Path & Incantation.pdf
+SotDL - Spell Cards - Exquisite Agony.pdf
+SotDL - Spell Cards - Hunger in the Void.pdf
+SotDL - Spell Cards - SotDL Path.pdf
+SotDL - Spell Cards - Spiritualism.pdf
+SotDL - Spell Cards - Telekinesis.pdf
+SotDL - Spell Cards - Telepathy.pdf
+SotDL - Spell Cards - Terrible Beauty.pdf
+SotDL - Spell Cards - Tombs.pdf
+SotDL - Spell Cards - Uncertain Faith.pdf

@@ -1,0 +1,36 @@
+export const TRADITION_ATTRIBUTE: Record<string, 'Intellect' | 'Will'> = {
+  Arcana: 'Intellect',
+  Battle: 'Intellect',
+  Conjuration: 'Intellect',
+  Curse: 'Intellect',
+  Divination: 'Intellect',
+  Enchantment: 'Intellect',
+  Forbidden: 'Intellect',
+  Illusion: 'Intellect',
+  Necromancy: 'Intellect',
+  Protection: 'Intellect',
+  Rune: 'Intellect',
+  Shadow: 'Intellect',
+  Technomancy: 'Intellect',
+  Teleportation: 'Intellect',
+  Time: 'Intellect',
+  Air: 'Will',
+  Alteration: 'Will',
+  Celestial: 'Will',
+  Chaos: 'Will',
+  Destruction: 'Will',
+  Earth: 'Will',
+  Fire: 'Will',
+  Life: 'Will',
+  Nature: 'Will',
+  Primal: 'Will',
+  Song: 'Will',
+  Storm: 'Will',
+  Theurgy: 'Will',
+  Transformation: 'Will',
+  Water: 'Will',
+}
+
+export const DARK_TRADITIONS = new Set(['Curse', 'Forbidden', 'Necromancy'])
+
+export const ALL_TRADITIONS = Object.keys(TRADITION_ATTRIBUTE).sort()
