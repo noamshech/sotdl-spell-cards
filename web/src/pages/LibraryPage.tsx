@@ -162,49 +162,46 @@ export function LibraryPage() {
         </div>
 
         <div className="filter-board">
-          <FilterCheckboxGroup
-            label="Attribute"
-            options={available.attributes}
-            selected={filters.attributes}
-            onChange={(v) => setFilter('attributes', v)}
-            columns={2}
-          />
+          <div className="filter-board-top">
+            <FilterCheckboxGroup
+              label="Attribute"
+              options={available.attributes}
+              selected={filters.attributes}
+              onChange={(v) => setFilter('attributes', v)}
+            />
+            <FilterCheckboxGroup
+              label="Type"
+              options={available.kinds}
+              selected={filters.kinds}
+              onChange={(v) => setFilter('kinds', v)}
+              formatLabel={(v) => (v === 'ATTACK' ? 'Attack' : v === 'UTILITY' ? 'Utility' : v)}
+            />
+            <FilterCheckboxGroup
+              label="Rank"
+              options={available.ranks}
+              selected={filters.ranks}
+              onChange={(v) => setFilter('ranks', v)}
+            />
+            <FilterCheckboxGroup
+              label="Dark magic"
+              options={available.dark}
+              selected={filters.dark}
+              onChange={(v) => setFilter('dark', v)}
+              formatLabel={(v) => (v === 'yes' ? 'Dark' : 'Non-dark')}
+            />
+            <FilterCheckboxGroup
+              label="Book"
+              options={available.books}
+              selected={filters.books}
+              onChange={(v) => setFilter('books', v)}
+            />
+          </div>
           <FilterCheckboxGroup
             label="Tradition"
             options={available.traditions}
             selected={filters.traditions}
             onChange={(v) => setFilter('traditions', v)}
-            columns={3}
-          />
-          <FilterCheckboxGroup
-            label="Type"
-            options={available.kinds}
-            selected={filters.kinds}
-            onChange={(v) => setFilter('kinds', v)}
-            formatLabel={(v) => (v === 'ATTACK' ? 'Attack' : v === 'UTILITY' ? 'Utility' : v)}
-            columns={2}
-          />
-          <FilterCheckboxGroup
-            label="Rank"
-            options={available.ranks}
-            selected={filters.ranks}
-            onChange={(v) => setFilter('ranks', v)}
-            columns={3}
-          />
-          <FilterCheckboxGroup
-            label="Dark magic"
-            options={available.dark}
-            selected={filters.dark}
-            onChange={(v) => setFilter('dark', v)}
-            formatLabel={(v) => (v === 'yes' ? 'Dark' : 'Non-dark')}
-            columns={2}
-          />
-          <FilterCheckboxGroup
-            label="Book"
-            options={available.books}
-            selected={filters.books}
-            onChange={(v) => setFilter('books', v)}
-            columns={2}
+            layout="wide"
           />
         </div>
 

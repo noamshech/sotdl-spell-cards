@@ -4,7 +4,8 @@ type Props = {
   selected: string[]
   onChange: (next: string[]) => void
   formatLabel?: (value: string) => string
-  columns?: number
+  /** wide = full-width wrapping chips (traditions); compact = smaller groups */
+  layout?: 'wide' | 'compact'
 }
 
 export function FilterCheckboxGroup({
@@ -13,7 +14,7 @@ export function FilterCheckboxGroup({
   selected,
   onChange,
   formatLabel = (v) => v,
-  columns = 2,
+  layout = 'compact',
 }: Props) {
   function toggle(value: string) {
     if (selected.includes(value)) {
@@ -24,36 +25,38 @@ export function FilterCheckboxGroup({
   }
 
   return (
-    <fieldset className="filter-group">
+    <fieldset className={`filter-group filter-group--${layout}`}>
       <legend>
         {label}
         {selected.length > 0 && <span className="filter-count">{selected.length}</span>}
       </legend>
+
+      {selected.length > 0 && (
+        <button type="button" className="filter-clear" onClick={() => onChange([])}>
+          Clear
+        </button>
+      )}
+
       {options.length === 0 ? (
         <p className="filter-empty">No options with current filters</p>
       ) : (
-        <div className="check-grid" style={{ ['--cols' as string]: columns }}>
+        <div className="chip-filters" role="group" aria-label={label}>
           {options.map((opt) => {
-            const id = `${label}-${opt}`
+            const id = `${label}-${opt}`.replace(/\s+/g, '-')
             const checked = selected.includes(opt)
             return (
-              <label key={opt} className={`check-item${checked ? ' on' : ''}`} htmlFor={id}>
+              <label key={opt} className={`filter-chip${checked ? ' on' : ''}`} htmlFor={id}>
                 <input
                   id={id}
                   type="checkbox"
                   checked={checked}
                   onChange={() => toggle(opt)}
                 />
-                <span>{formatLabel(opt)}</span>
+                <span className="filter-chip-label">{formatLabel(opt)}</span>
               </label>
             )
           })}
         </div>
-      )}
-      {selected.length > 0 && (
-        <button type="button" className="filter-clear" onClick={() => onChange([])}>
-          Clear
-        </button>
       )}
     </fieldset>
   )
