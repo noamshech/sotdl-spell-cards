@@ -6,9 +6,9 @@ export function Layout() {
       <header className="site-header">
         <div className="brand">
           <div className="brand-title">Hearth &amp; Hex</div>
-          <div className="brand-sub">A cozy Shadow of the Demon Lord spell grimoire</div>
+          <div className="brand-sub">Shadow of the Demon Lord spell grimoire</div>
         </div>
-        <nav className="nav">
+        <nav className="nav" aria-label="Main">
           <NavLink to="/" end>
             Library
           </NavLink>
@@ -16,7 +16,9 @@ export function Layout() {
           <NavLink to="/character">Character</NavLink>
         </nav>
       </header>
-      <Outlet />
+      <main className="app-main">
+        <Outlet />
+      </main>
     </div>
   )
 }

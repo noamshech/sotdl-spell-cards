@@ -37,51 +37,47 @@ export function GrimoirePage() {
   return (
     <>
       <section className="panel">
-        <div className="stat-row" style={{ justifyContent: 'space-between' }}>
-          <div>
-            <h2 className="panel-title" style={{ marginBottom: 0 }}>
-              {active.name}&apos;s Grimoire
-            </h2>
-            <p className="muted" style={{ margin: '0.35rem 0 0' }}>
+        <div className="grimoire-head">
+          <div className="grimoire-head-text">
+            <h2 className="panel-title">{active.name}&apos;s Grimoire</h2>
+            <p className="muted meta-line">
               Power {active.power} · {active.traditions.length} traditions ·{' '}
-              {active.knownSpells.length} spells known
+              {active.knownSpells.length} spells
             </p>
           </div>
-          <div className="btn-row">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => {
-                rest()
-                showToast('You complete a rest. All castings restored.')
-              }}
-            >
-              Rest &amp; recover
-            </button>
-          </div>
+          <button
+            type="button"
+            className="btn btn-primary btn-rest"
+            onClick={() => {
+              rest()
+              showToast('You complete a rest. All castings restored.')
+            }}
+          >
+            Rest &amp; recover
+          </button>
         </div>
 
-        <div className="field" style={{ maxWidth: 220, marginBottom: '1rem' }}>
-          <label htmlFor="g-trad">Tradition</label>
-          <select
-            id="g-trad"
-            value={traditionFilter}
-            onChange={(e) => setTraditionFilter(e.target.value)}
-          >
-            <option value="">All known</option>
-            {active.traditions.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
+        <div className="grimoire-toolbar">
+          <div className="field field-grow">
+            <label htmlFor="g-trad">Tradition</label>
+            <select
+              id="g-trad"
+              value={traditionFilter}
+              onChange={(e) => setTraditionFilter(e.target.value)}
+            >
+              <option value="">All known</option>
+              {active.traditions.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {!!active.traditions.length && (
-          <div style={{ marginBottom: '1rem' }}>
-            <div className="muted" style={{ marginBottom: '0.4rem', fontSize: '0.8rem' }}>
-              Known traditions
-            </div>
+          <div className="tradition-strip">
+            <span className="strip-label">Known</span>
             <div className="chip-list">
               {active.traditions.map((t) => (
                 <span className="chip" key={t}>
@@ -89,6 +85,7 @@ export function GrimoirePage() {
                   <button
                     type="button"
                     title={`Abandon ${t}`}
+                    aria-label={`Abandon ${t}`}
                     onClick={() => {
                       if (confirm(`Abandon ${t} and forget its spells?`)) {
                         abandonTradition(t)
@@ -106,8 +103,7 @@ export function GrimoirePage() {
 
         {!known.length && (
           <div className="empty">
-            No spells in the grimoire yet. Open the Library and learn a rank 0 spell to discover a
-            tradition.
+            No spells yet. Open the Library and learn a rank 0 spell to discover a tradition.
           </div>
         )}
 
@@ -117,21 +113,23 @@ export function GrimoirePage() {
             const rank = Number(spell.spell_level)
             const used = active.expended[id] ?? 0
             return (
-              <div className="grimoire-item" key={id}>
-                <img
-                  src={imageUrl(spell)}
-                  alt=""
+              <article className="grimoire-item" key={id}>
+                <button
+                  type="button"
+                  className="grimoire-thumb"
                   onClick={() => setSelected(spell)}
-                  role="presentation"
-                />
-                <div>
+                  aria-label={`Open ${spell.name}`}
+                >
+                  <img src={imageUrl(spell)} alt="" />
+                </button>
+                <div className="grimoire-info">
                   <div className="spell-tile-name">{spell.name}</div>
                   <div className="spell-tile-sub">
                     {spell.tradition} · {spell.utility_or_attack} {rank}
                   </div>
                   <CastingPips power={active.power} rank={rank} used={used} />
                 </div>
-                <div className="btn-row">
+                <div className="grimoire-actions">
                   <button
                     type="button"
                     className="btn btn-primary"
@@ -142,11 +140,7 @@ export function GrimoirePage() {
                   >
                     Cast
                   </button>
-                  <button
-                    type="button"
-                    className="btn btn-ghost"
-                    onClick={() => restoreCasting(id)}
-                  >
+                  <button type="button" className="btn btn-ghost" onClick={() => restoreCasting(id)}>
                     Undo
                   </button>
                   <button
@@ -160,7 +154,7 @@ export function GrimoirePage() {
                     Forget
                   </button>
                 </div>
-              </div>
+              </article>
             )
           })}
         </div>

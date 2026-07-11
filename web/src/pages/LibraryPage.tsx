@@ -146,9 +146,8 @@ export function LibraryPage() {
     <>
       <section className="panel">
         <h2 className="panel-title">Spell Library</h2>
-        <p className="muted" style={{ marginTop: 0 }}>
-          Check multiple options. Choosing Attribute (or any filter) narrows the choices in the
-          other groups — not only the cards.
+        <p className="muted intro-line">
+          Pick multiple filters — each choice narrows the other options, not only the cards.
         </p>
 
         <div className="field" style={{ marginBottom: '0.9rem' }}>

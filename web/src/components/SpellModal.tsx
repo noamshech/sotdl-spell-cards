@@ -108,7 +108,7 @@ export function SpellModal({ spell, onClose, onToast }: Props) {
           {active && known && (
             <>
               <CastingPips power={active.power} rank={rank} used={used} />
-              <div className="btn-row">
+              <div className="btn-row modal-actions">
                 <button type="button" className="btn btn-primary" onClick={onCast}>
                   Cast
                 </button>
@@ -130,7 +130,7 @@ export function SpellModal({ spell, onClose, onToast }: Props) {
           )}
 
           {active && !known && (
-            <div className="btn-row" style={{ marginTop: '1rem' }}>
+            <div className="btn-row modal-actions">
               <button type="button" className="btn btn-primary" onClick={onLearn}>
                 {!discovered && rank === 0
                   ? `Discover ${spell.tradition}`
@@ -139,7 +139,7 @@ export function SpellModal({ spell, onClose, onToast }: Props) {
             </div>
           )}
 
-          <div className="btn-row" style={{ marginTop: '1rem' }}>
+          <div className="btn-row modal-actions modal-actions-close">
             <button type="button" className="btn btn-ghost" onClick={onClose}>
               Close
             </button>

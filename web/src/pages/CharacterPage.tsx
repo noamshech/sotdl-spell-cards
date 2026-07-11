@@ -56,18 +56,14 @@ export function CharacterPage() {
     <>
       <section className="panel">
         <h2 className="panel-title">Character</h2>
-        <p className="muted" style={{ marginTop: 0 }}>
+        <p className="muted intro-line">
           Saved in this browser only — free, private, no account. Export a backup anytime.
         </p>
 
-        <div className="stat-row">
+        <div className="form-grid">
           <div className="field">
             <label htmlFor="active">Active character</label>
-            <select
-              id="active"
-              value={active.id}
-              onChange={(e) => setActiveId(e.target.value)}
-            >
+            <select id="active" value={active.id} onChange={(e) => setActiveId(e.target.value)}>
               {state.characters.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name} (Power {c.power})
@@ -75,22 +71,24 @@ export function CharacterPage() {
               ))}
             </select>
           </div>
-          <button type="button" className="btn btn-ghost" onClick={() => addCharacter()}>
-            New character
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={() => {
-              if (confirm(`Delete ${active.name}?`)) deleteCharacter(active.id)
-            }}
-          >
-            Delete
-          </button>
+          <div className="btn-row form-actions">
+            <button type="button" className="btn btn-ghost" onClick={() => addCharacter()}>
+              New character
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => {
+                if (confirm(`Delete ${active.name}?`)) deleteCharacter(active.id)
+              }}
+            >
+              Delete
+            </button>
+          </div>
         </div>
 
-        <div className="stat-row">
-          <div className="field" style={{ minWidth: 220 }}>
+        <div className="form-grid form-grid-2">
+          <div className="field">
             <label htmlFor="name">Name</label>
             <input
               id="name"
@@ -98,7 +96,7 @@ export function CharacterPage() {
               onChange={(e) => updateActive({ name: e.target.value })}
             />
           </div>
-          <div className="field">
+          <div className="field field-narrow">
             <label htmlFor="power">Power</label>
             <select
               id="power"
@@ -114,18 +112,15 @@ export function CharacterPage() {
           </div>
         </div>
 
-        <h3 style={{ color: 'var(--moss)', fontSize: '1.1rem', margin: '0.5rem 0' }}>
-          Castings per spell at Power {active.power}
-        </h3>
-        <p className="muted" style={{ marginTop: 0 }}>
-          In SotDL, castings are tracked <em>per known spell</em>, not as a shared pool. Resting
-          restores all expended castings.
+        <h3 className="section-heading">Castings at Power {active.power}</h3>
+        <p className="muted intro-line">
+          Castings are tracked <em>per known spell</em>, not as a shared pool. Resting restores all.
         </p>
         <div className="chip-list">
           {castingPreview.map(({ rank, n }) =>
             n > 0 ? (
               <span className="chip" key={rank}>
-                Rank {rank}: {n} casting{n === 1 ? '' : 's'} each
+                Rank {rank}: {n}
               </span>
             ) : null,
           )}
