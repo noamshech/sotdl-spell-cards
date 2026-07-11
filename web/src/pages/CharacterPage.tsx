@@ -25,6 +25,7 @@ import {
   MASTER_SUGGESTIONS,
   NOVICE_SUGGESTIONS,
 } from '../data/levelUp'
+import { REVISED_RULES_NOTES } from '../data/revisedRules'
 import {
   derivedDefense,
   derivedHealth,
@@ -486,6 +487,10 @@ export function CharacterPage() {
               onChange={(n) => updateActive({ corruption: n })}
             />
           </div>
+          <p className="rules-note" title={REVISED_RULES_NOTES.insanity.body}>
+            <IconMoon size={13} /> <strong>{REVISED_RULES_NOTES.edition}:</strong>{' '}
+            {REVISED_RULES_NOTES.insanity.body}
+          </p>
 
           <details className="sheet-advanced">
             <summary>Adjust derived bonuses</summary>

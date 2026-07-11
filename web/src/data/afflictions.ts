@@ -14,7 +14,7 @@ export const AFFLICTIONS: AfflictionDef[] = [
   { id: 'defenseless', name: 'Defenseless', summary: 'Defense 5; cannot use actions; attribute challenges fail.' },
   { id: 'diseased', name: 'Diseased', summary: 'Attack and challenge rolls with 1 bane.' },
   { id: 'fatigued', name: 'Fatigued', summary: 'Attack and challenge rolls with 1 bane.' },
-  { id: 'frightened', name: 'Frightened', summary: '1 bane on rolls; cannot take fast turns.' },
+  { id: 'frightened', name: 'Frightened', summary: '2019 Revised: Attack and challenge rolls with 1 bane, or 3 banes while you can see the source. (No longer restricts when you can act.)' },
   { id: 'grabbed', name: 'Grabbed', summary: 'May be unable to move away until the grab ends.' },
   { id: 'immobilized', name: 'Immobilized', summary: 'Speed 0; attacks against you gain 1 boon.' },
   { id: 'impaired', name: 'Impaired', summary: 'Attack and challenge rolls with 1 bane.' },

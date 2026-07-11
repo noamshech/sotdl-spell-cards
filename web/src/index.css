@@ -1418,6 +1418,24 @@ h3 {
   color: var(--ember);
 }
 
+.rules-note {
+  margin: 0.65rem 0 0;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  background: rgba(61, 107, 82, 0.1);
+  border: 1px solid rgba(61, 107, 82, 0.15);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  display: flex;
+  gap: 0.35rem;
+  align-items: flex-start;
+}
+
+.rules-note strong {
+  color: var(--fern);
+}
+
 @keyframes rise {
   from {
     opacity: 0;

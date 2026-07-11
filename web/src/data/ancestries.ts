@@ -68,7 +68,7 @@ export const ANCESTRIES: AncestryPreset[] = [
     insanity: 0,
     corruption: 0,
     notes:
-      'Construct with a key. Immune: disease/poison damage; asleep, diseased, fatigued, poisoned. Defense 13. Level 4: Health +5.',
+      '2019 Revised: Key on your body — turning = creature; stopped = object (Defense 5, Health 15, Str/Agi 0, Speed 0). Key stops when incapacitated or after a round with attack/challenge total 0 or less. Excess damage carries into object Health. Mechanical Body: no eat/drink/breathe/age/undead; cannot swim. Object form suppresses afflictions (duration still ticks). Wind the Clock / Repair Damage let others restore or mend you. Level 4: Health +5; learn one spell or Grind the Gears.',
     languages: 'Common Tongue.',
   },
   {
