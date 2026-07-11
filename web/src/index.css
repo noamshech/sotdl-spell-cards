@@ -788,6 +788,309 @@ h3 {
   font-size: 0.9rem;
 }
 
+/* —— Character sheet —— */
+.sheet-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: end;
+  margin-bottom: 0.85rem;
+}
+
+.sheet-top-actions {
+  margin-bottom: 0.1rem;
+}
+
+.sheet-identity,
+.sheet-paths {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 5.5rem;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.sheet-paths {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.attr-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+}
+
+.attr-card {
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(36, 48, 40, 0.1);
+  border-radius: 14px;
+  padding: 0.75rem 0.55rem 0.65rem;
+  text-align: center;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+}
+
+.attr-name {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fern);
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.attr-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.attr-score {
+  width: 3rem;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--moss);
+  padding: 0;
+  -moz-appearance: textfield;
+}
+
+.attr-score::-webkit-outer-spin-button,
+.attr-score::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.attr-mod {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--candle);
+  margin-top: 0.15rem;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.attr-hint {
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+  margin-top: 0.2rem;
+}
+
+.vitals-card,
+.magic-card {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(36, 48, 40, 0.1);
+  border-radius: 14px;
+  padding: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.health-labels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+
+.health-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--moss);
+  font-size: 1.1rem;
+}
+
+.health-numbers {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.health-bar {
+  height: 0.7rem;
+  border-radius: 999px;
+  background: rgba(36, 48, 40, 0.12);
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.health-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--fern), #5a9a6e);
+  transition: width 0.25s ease;
+}
+
+.vitals-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.stat-pills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.stat-pill {
+  background: rgba(31, 58, 46, 0.06);
+  border-radius: 12px;
+  padding: 0.5rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.stat-pill-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--fern);
+  font-weight: 800;
+}
+
+.stat-pill-value {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--moss);
+}
+
+.stat-pill-value small {
+  font-size: 0.85rem;
+  color: var(--candle);
+  font-weight: 700;
+}
+
+.stat-pill-input {
+  border: none;
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--moss);
+  padding: 0;
+  width: 100%;
+  min-height: 1.6rem;
+}
+
+.tracker-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(36, 48, 40, 0.1);
+  border-radius: 999px;
+  padding: 0.3rem 0.45rem 0.3rem 0.85rem;
+}
+
+.stepper-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fern);
+}
+
+.stepper-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.stepper-value {
+  min-width: 1.6rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--moss);
+}
+
+.stepper-btn {
+  appearance: none;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(61, 107, 82, 0.12);
+  color: var(--moss);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.stepper-btn:hover {
+  background: rgba(61, 107, 82, 0.22);
+}
+
+.sheet-advanced {
+  margin-top: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.sheet-advanced summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--fern);
+}
+
+.advanced-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.55rem;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.field textarea {
+  border: 1px solid rgba(36, 48, 40, 0.18);
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  color: var(--ink);
+  outline: none;
+  width: 100%;
+  resize: vertical;
+  min-height: 4.5rem;
+  font: inherit;
+  line-height: 1.4;
+}
+
+.field textarea:focus {
+  border-color: var(--fern);
+  box-shadow: 0 0 0 3px rgba(61, 107, 82, 0.18);
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -945,6 +1248,40 @@ h3 {
 
   .form-actions .btn {
     flex: 1;
+  }
+
+  .sheet-identity {
+    grid-template-columns: 1fr 5rem;
+  }
+
+  .sheet-identity .field:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+
+  .sheet-paths {
+    grid-template-columns: 1fr;
+  }
+
+  .attr-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .vitals-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .vitals-actions .btn {
+    width: 100%;
+  }
+
+  .tracker-row {
+    grid-template-columns: 1fr;
+  }
+
+  .advanced-grid,
+  .notes-grid {
+    grid-template-columns: 1fr;
   }
 
   .modal {
