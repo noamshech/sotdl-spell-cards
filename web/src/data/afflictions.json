@@ -1,0 +1,97 @@
+[
+  {
+    "id": "asleep",
+    "name": "Asleep",
+    "summary": "Prone and unconscious; another can wake with an action; damage usually removes it."
+  },
+  {
+    "id": "blinded",
+    "name": "Blinded",
+    "summary": "Cannot see (totally obscured); attacks vs Defense/Agility gain 1 boon; sight Perception fails; Speed becomes 2 unless lower."
+  },
+  {
+    "id": "charmed",
+    "name": "Charmed",
+    "summary": "Sees the source as a trusted friend and ally; cannot target that creature with attacks."
+  },
+  {
+    "id": "compelled",
+    "name": "Compelled",
+    "summary": "Cannot act or move; each fast turn the controller forces a move up to Speed or an action."
+  },
+  {
+    "id": "dazed",
+    "name": "Dazed",
+    "summary": "Cannot use actions."
+  },
+  {
+    "id": "deafened",
+    "name": "Deafened",
+    "summary": "Cannot hear; listen Perception challenges automatically fail."
+  },
+  {
+    "id": "defenseless",
+    "name": "Defenseless",
+    "summary": "Defense 5; cannot use actions; attribute challenge rolls fail; can still perceive and make Perception rolls."
+  },
+  {
+    "id": "diseased",
+    "name": "Diseased",
+    "summary": "All attack and challenge rolls with 1 bane."
+  },
+  {
+    "id": "fatigued",
+    "name": "Fatigued",
+    "summary": "All attack and challenge rolls with 1 bane."
+  },
+  {
+    "id": "frightened",
+    "name": "Frightened",
+    "summary": "All attack and challenge rolls with 1 bane; cannot take fast turns."
+  },
+  {
+    "id": "grabbed",
+    "name": "Grabbed",
+    "summary": "If Size <= grabber: cannot move away until removed. If larger: grabber may move with you or end the grab when you move."
+  },
+  {
+    "id": "immobilized",
+    "name": "Immobilized",
+    "summary": "Speed 0; no Speed bonuses; attacks against you gain 1 boon."
+  },
+  {
+    "id": "impaired",
+    "name": "Impaired",
+    "summary": "All attack and challenge rolls with 1 bane."
+  },
+  {
+    "id": "poisoned",
+    "name": "Poisoned",
+    "summary": "All attack and challenge rolls with 1 bane."
+  },
+  {
+    "id": "prone",
+    "name": "Prone",
+    "summary": "On the ground; crawl or stand; Str/Agi rolls 1 bane; melee reach attacks 1 boon, ranged vs Defense 1 bane."
+  },
+  {
+    "id": "slowed",
+    "name": "Slowed",
+    "summary": "Only slow turns; Speed halved; no Speed increases."
+  },
+  {
+    "id": "stunned",
+    "name": "Stunned",
+    "summary": "Cannot move or use actions; challenge rolls auto-fail; attacks against you gain 1 boon."
+  },
+  {
+    "id": "surprised",
+    "name": "Surprised",
+    "summary": "Cannot use actions or move; challenge rolls auto-fail."
+  },
+  {
+    "id": "unconscious",
+    "name": "Unconscious",
+    "summary": "Cannot act, move, or perceive; Defense 5; challenge rolls fail."
+  }
+]

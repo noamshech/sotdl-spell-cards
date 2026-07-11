@@ -47,6 +47,12 @@ export type Character = {
   corruption: number
   weapons: string
   equipment: string
+  /** Active affliction ids from the core list */
+  afflictions: string[]
+  /** Initiative total for the combat strip */
+  initiative: number
+  /** What you're concentrating on (spell name / note) */
+  concentration: string
   traditions: string[]
   knownSpells: string[]
   expended: Record<string, number>

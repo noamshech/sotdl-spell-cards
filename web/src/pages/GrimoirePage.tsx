@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { CastingPips } from '../components/CastingPips'
+import { IconRest, IconSpark } from '../components/Icons'
 import { SpellModal } from '../components/SpellModal'
 import { useCharacter } from '../context/CharacterContext'
 import { findSpell, useSpells } from '../hooks/useSpells'
@@ -39,7 +40,9 @@ export function GrimoirePage() {
       <section className="panel">
         <div className="grimoire-head">
           <div className="grimoire-head-text">
-            <h2 className="panel-title">{active.name}&apos;s Grimoire</h2>
+            <h2 className="panel-title">
+              <IconSpark size={18} /> {active.name}&apos;s Grimoire
+            </h2>
             <p className="muted meta-line">
               Power {active.power} · {active.traditions.length} traditions ·{' '}
               {active.knownSpells.length} spells
@@ -53,7 +56,7 @@ export function GrimoirePage() {
               showToast('You complete a rest. All castings restored.')
             }}
           >
-            Rest &amp; recover
+            <IconRest size={15} /> Rest &amp; recover
           </button>
         </div>
 

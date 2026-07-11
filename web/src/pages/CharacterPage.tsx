@@ -1,8 +1,30 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AttributeCard } from '../components/AttributeCard'
+import {
+  IconAlert,
+  IconCheck,
+  IconDice,
+  IconFlame,
+  IconHeart,
+  IconLeaf,
+  IconMoon,
+  IconRest,
+  IconShield,
+  IconSpark,
+  IconSword,
+  IconUser,
+} from '../components/Icons'
 import { Stepper } from '../components/Stepper'
 import { useCharacter } from '../context/CharacterContext'
+import { ANCESTRIES, type AncestryPreset } from '../data/ancestries'
+import { AFFLICTIONS } from '../data/afflictions'
+import {
+  EXPERT_SUGGESTIONS,
+  LEVEL_STEPS,
+  MASTER_SUGGESTIONS,
+  NOVICE_SUGGESTIONS,
+} from '../data/levelUp'
 import {
   derivedDefense,
   derivedHealth,
@@ -10,6 +32,15 @@ import {
   derivedPerception,
   formatMod,
 } from '../types'
+
+const ANCESTRY_ICONS: Record<string, typeof IconUser> = {
+  Human: IconUser,
+  Changeling: IconMoon,
+  Clockwork: IconDice,
+  Dwarf: IconShield,
+  Goblin: IconLeaf,
+  Orc: IconFlame,
+}
 
 export function CharacterPage() {
   const {
@@ -24,10 +55,11 @@ export function CharacterPage() {
   } = useCharacter()
   const fileRef = useRef<HTMLInputElement>(null)
   const [toast, setToast] = useState<string | null>(null)
+  const [humanBoost, setHumanBoost] = useState<string>('strength')
 
   function showToast(msg: string) {
     setToast(msg)
-    window.setTimeout(() => setToast(null), 2400)
+    window.setTimeout(() => setToast(null), 2600)
   }
 
   function downloadSave() {
@@ -62,13 +94,48 @@ export function CharacterPage() {
   const defense = derivedDefense(active)
   const remaining = Math.max(0, health - active.damage)
   const damagePct = health > 0 ? Math.min(100, (active.damage / health) * 100) : 0
+  const nextStep = LEVEL_STEPS.find((s) => s.level === active.level + 1)
 
-  function heal() {
-    updateActive({ damage: Math.max(0, active!.damage - healing) })
+  function applyAncestry(preset: AncestryPreset) {
+    const scores = {
+      strength: preset.strength,
+      agility: preset.agility,
+      intellect: preset.intellect,
+      will: preset.will,
+    }
+    if (preset.name === 'Human') {
+      const key = humanBoost as keyof typeof scores
+      scores[key] = scores[key] + 1
+    }
+    updateActive({
+      ancestry: preset.name,
+      ...scores,
+      perceptionBonus: preset.perceptionBonus,
+      healthBonus: preset.healthBonus,
+      defenseOverride: preset.defenseOverride,
+      size: preset.size,
+      speed: preset.speed,
+      power: preset.power,
+      insanity: preset.insanity,
+      corruption: preset.corruption,
+      damage: 0,
+      description: [preset.notes, preset.languages].filter(Boolean).join('\n\n'),
+    })
+    showToast(`${preset.name} preset applied`)
   }
 
-  function restHeal() {
-    updateActive({ damage: 0 })
+  function toggleAffliction(id: string) {
+    if (!active) return
+    const has = active.afflictions.includes(id)
+    updateActive({
+      afflictions: has
+        ? active.afflictions.filter((a) => a !== id)
+        : [...active.afflictions, id],
+    })
+  }
+
+  function setLevel(level: number) {
+    updateActive({ level: Math.max(0, Math.min(10, level)) })
   }
 
   return (
@@ -76,7 +143,9 @@ export function CharacterPage() {
       <section className="panel sheet-panel">
         <div className="sheet-topbar">
           <div className="field field-grow">
-            <label htmlFor="active">Character</label>
+            <label htmlFor="active">
+              <IconUser size={12} /> Character
+            </label>
             <select id="active" value={active.id} onChange={(e) => setActiveId(e.target.value)}>
               {state.characters.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -101,7 +170,6 @@ export function CharacterPage() {
           </div>
         </div>
 
-        {/* Identity */}
         <div className="sheet-identity">
           <div className="field sheet-name-field">
             <label htmlFor="name">Name</label>
@@ -117,7 +185,6 @@ export function CharacterPage() {
               id="ancestry"
               value={active.ancestry}
               onChange={(e) => updateActive({ ancestry: e.target.value })}
-              placeholder="Human, Dwarf…"
             />
           </div>
           <div className="field field-narrow">
@@ -128,8 +195,55 @@ export function CharacterPage() {
               min={0}
               max={10}
               value={active.level}
-              onChange={(e) => updateActive({ level: Number(e.target.value) || 0 })}
+              onChange={(e) => setLevel(Number(e.target.value) || 0)}
             />
+          </div>
+        </div>
+
+        {/* Ancestry presets */}
+        <div className="preset-block">
+          <div className="preset-head">
+            <h3 className="section-heading" style={{ margin: 0 }}>
+              <IconDice size={16} /> Ancestry presets
+            </h3>
+            <p className="muted intro-line" style={{ margin: 0 }}>
+              One tap fills starting scores from the core book.
+            </p>
+          </div>
+          <div className="human-boost">
+            <span className="strip-label">Human +1 to</span>
+            {(['strength', 'agility', 'intellect', 'will'] as const).map((k) => (
+              <label key={k} className={`filter-chip${humanBoost === k ? ' on' : ''}`}>
+                <input
+                  type="radio"
+                  name="humanBoost"
+                  checked={humanBoost === k}
+                  onChange={() => setHumanBoost(k)}
+                />
+                <span className="filter-chip-label">{k.slice(0, 3)}</span>
+              </label>
+            ))}
+          </div>
+          <div className="preset-grid">
+            {ANCESTRIES.map((a) => {
+              const Icon = ANCESTRY_ICONS[a.name] ?? IconUser
+              const selected = active.ancestry === a.name
+              return (
+                <button
+                  key={a.name}
+                  type="button"
+                  className={`preset-card${selected ? ' on' : ''}`}
+                  onClick={() => applyAncestry(a)}
+                  title={a.notes}
+                >
+                  <Icon size={18} />
+                  <strong>{a.name}</strong>
+                  <span>
+                    S{a.strength} A{a.agility} I{a.intellect} W{a.will}
+                  </span>
+                </button>
+              )
+            })}
           </div>
         </div>
 
@@ -138,26 +252,44 @@ export function CharacterPage() {
             <label htmlFor="novice">Novice</label>
             <input
               id="novice"
+              list="novice-list"
               value={active.novicePath}
               onChange={(e) => updateActive({ novicePath: e.target.value })}
               placeholder="Magician, Warrior…"
             />
+            <datalist id="novice-list">
+              {NOVICE_SUGGESTIONS.map((p) => (
+                <option key={p} value={p} />
+              ))}
+            </datalist>
           </div>
           <div className="field">
             <label htmlFor="expert">Expert</label>
             <input
               id="expert"
+              list="expert-list"
               value={active.expertPath}
               onChange={(e) => updateActive({ expertPath: e.target.value })}
             />
+            <datalist id="expert-list">
+              {EXPERT_SUGGESTIONS.map((p) => (
+                <option key={p} value={p} />
+              ))}
+            </datalist>
           </div>
           <div className="field">
             <label htmlFor="master">Master</label>
             <input
               id="master"
+              list="master-list"
               value={active.masterPath}
               onChange={(e) => updateActive({ masterPath: e.target.value })}
             />
+            <datalist id="master-list">
+              {MASTER_SUGGESTIONS.map((p) => (
+                <option key={p} value={p} />
+              ))}
+            </datalist>
           </div>
         </div>
 
@@ -171,8 +303,69 @@ export function CharacterPage() {
           />
         </div>
 
-        {/* Attributes */}
-        <h3 className="section-heading">Attributes</h3>
+        {/* Level-up helper */}
+        <div className="levelup-card">
+          <div className="levelup-head">
+            <h3 className="section-heading" style={{ margin: 0 }}>
+              <IconCheck size={16} /> Level-up helper
+            </h3>
+            <div className="btn-row">
+              <button
+                type="button"
+                className="btn btn-ghost"
+                disabled={active.level <= 0}
+                onClick={() => setLevel(active.level - 1)}
+              >
+                −
+              </button>
+              <span className="level-badge">Lvl {active.level}</span>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={active.level >= 10}
+                onClick={() => {
+                  const next = Math.min(10, active.level + 1)
+                  setLevel(next)
+                  const step = LEVEL_STEPS.find((s) => s.level === next)
+                  showToast(step ? `Level ${next}: ${step.title}` : `Now level ${next}`)
+                }}
+              >
+                Level up
+              </button>
+            </div>
+          </div>
+          {nextStep ? (
+            <p className="levelup-next">
+              <strong>Next (lvl {nextStep.level}):</strong> {nextStep.title} — {nextStep.detail}
+            </p>
+          ) : (
+            <p className="levelup-next muted">You have reached level 10.</p>
+          )}
+          <ol className="levelup-list">
+            {LEVEL_STEPS.map((step) => (
+              <li
+                key={step.level}
+                className={
+                  step.level < active.level
+                    ? 'done'
+                    : step.level === active.level
+                      ? 'current'
+                      : ''
+                }
+              >
+                <span className="lvl-num">{step.level}</span>
+                <span>
+                  <strong>{step.title}</strong>
+                  <em>{step.detail}</em>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <h3 className="section-heading">
+          <IconSword size={16} /> Attributes
+        </h3>
         <div className="attr-grid">
           <AttributeCard
             name="Strength"
@@ -200,8 +393,9 @@ export function CharacterPage() {
           />
         </div>
 
-        {/* Vitals */}
-        <h3 className="section-heading">Vitals</h3>
+        <h3 className="section-heading">
+          <IconHeart size={16} /> Vitals
+        </h3>
         <div className="vitals-card">
           <div className="health-block">
             <div className="health-labels">
@@ -222,10 +416,18 @@ export function CharacterPage() {
                 max={health + 20}
                 onChange={(n) => updateActive({ damage: n })}
               />
-              <button type="button" className="btn btn-ghost" onClick={heal}>
-                Heal {healing}
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={() => updateActive({ damage: Math.max(0, active.damage - healing) })}
+              >
+                <IconRest size={14} /> Heal {healing}
               </button>
-              <button type="button" className="btn btn-primary" onClick={restHeal}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => updateActive({ damage: 0 })}
+              >
                 Clear damage
               </button>
             </div>
@@ -323,8 +525,32 @@ export function CharacterPage() {
           </details>
         </div>
 
-        {/* Magic */}
-        <h3 className="section-heading">Magic</h3>
+        {/* Afflictions */}
+        <h3 className="section-heading">
+          <IconAlert size={16} /> Afflictions
+        </h3>
+        <p className="muted intro-line">Tap to toggle. Active ones also show on the combat strip.</p>
+        <div className="affliction-grid">
+          {AFFLICTIONS.map((a) => {
+            const on = active.afflictions.includes(a.id)
+            return (
+              <button
+                key={a.id}
+                type="button"
+                className={`affliction-chip${on ? ' on' : ''}`}
+                title={a.summary}
+                onClick={() => toggleAffliction(a.id)}
+              >
+                <strong>{a.name}</strong>
+                <span>{a.summary}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        <h3 className="section-heading">
+          <IconSpark size={16} /> Magic
+        </h3>
         <div className="magic-card">
           <p className="muted intro-line">
             Power {active.power} · {active.traditions.length} traditions ·{' '}
@@ -340,11 +566,10 @@ export function CharacterPage() {
             </div>
           )}
           <Link to="/grimoire" className="btn btn-primary link-btn">
-            Open Grimoire
+            <IconSpark size={14} /> Open Grimoire
           </Link>
         </div>
 
-        {/* Notes */}
         <div className="notes-grid">
           <div className="field">
             <label htmlFor="talents">Talents</label>
@@ -353,7 +578,6 @@ export function CharacterPage() {
               rows={3}
               value={active.talents}
               onChange={(e) => updateActive({ talents: e.target.value })}
-              placeholder="Path talents…"
             />
           </div>
           <div className="field">
@@ -363,7 +587,6 @@ export function CharacterPage() {
               rows={3}
               value={active.weapons}
               onChange={(e) => updateActive({ weapons: e.target.value })}
-              placeholder="Sword · Strength · 2d6…"
             />
           </div>
           <div className="field">
@@ -382,7 +605,6 @@ export function CharacterPage() {
               rows={3}
               value={active.description}
               onChange={(e) => updateActive({ description: e.target.value })}
-              placeholder="Appearance, bonds, quirks…"
             />
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { IconBook } from '../components/Icons'
 import { FilterCheckboxGroup } from '../components/FilterCheckboxGroup'
 import { SpellModal } from '../components/SpellModal'
 import { SpellTile } from '../components/SpellTile'
@@ -145,7 +146,9 @@ export function LibraryPage() {
   return (
     <>
       <section className="panel">
-        <h2 className="panel-title">Spell Library</h2>
+        <h2 className="panel-title">
+          <IconBook size={18} /> Spell Library
+        </h2>
         <p className="muted intro-line">
           Pick multiple filters — each choice narrows the other options, not only the cards.
         </p>
